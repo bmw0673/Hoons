@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmln:th="http://www.thymeleaf.org" th:fragment="layout(myhead, mymain)">
+<head>
+	<meta charset="UTF-8">
+	<title>Hoons</title>
+	<link rel="stylesheet" href="/css/layout/header.css">
+	<link rel="stylesheet" href="/css/layout/footer.css">
+	<th:block th:replace="${myhead}"></th:block>
+</head>
+<body>
+	<th:block th:replace="~{layout/header::header}"></th:block>
+	
+	<th:block th:replace="${mymain}"></th:block>
+	
+	<th:block th:replace="~{layout/footer::footer}"></th:block>
+</body>
+
+
+</html>
