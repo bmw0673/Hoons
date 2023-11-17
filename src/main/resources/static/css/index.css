@@ -12,10 +12,10 @@
 }
 
 .item_list {
-	display: flex;
-	flex-wrap: wrap;
-	column-gap: 26.69px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr auto;
 }
+
 .item_list_info {
 	width: 280px;
 	height: 480px;
