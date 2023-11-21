@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+.join_area {
+	width: 400px;
+	margin: 0 auto;
+	padding: 50px 0 160px;
+}
+.join_area > div {
+	padding-bottom: 30px;
+}
+.join_area > div > label {
+	display: block;
+}
+.join_area > div > input {
+	width: 100%;
+	padding: 9px 0 8px;
+	border: none;
+	border-bottom: 1px solid #ebebeb;
+	outline-style: none;
+}
+.join_area > div > input:focus {
+	border-bottom: 1px solid #000;
+}
+
+.join_tilte {
+	text-align: center;
+	color: #000;
+	font-size: 32px;
+	letter-spacing: -.48px;
+	padding-bottom: 46px;
+	font-weight: 600;
+}

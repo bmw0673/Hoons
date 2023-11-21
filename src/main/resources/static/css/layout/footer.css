@@ -1,1 +1,43 @@
 @charset "UTF-8";
+
+.footer_container {
+	width: 1200px;
+	margin: 0 auto;
+	border-top: 1px solid rgba(34,34,34,0.5);
+}
+
+.footer_nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0 20px;
+}
+.footer_nav > li {
+	margin: 0 20px;
+}
+
+.footer_second{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0 20px;
+}
+.footer_second > li {
+	margin: 0 20px;
+}
+
+.footer_third{
+	text-align: center;
+}
+.footer_fourth{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0 20px;
+}
+.footer_fourth > li {
+	margin: 0 20px;
+}
+.cpo {
+	text-align: center;
+}

@@ -66,8 +66,16 @@ img {
 }
 .header_logo_area {
 	height: 300px;
-	border-bottom: 1px solid black;	
+	border-bottom: 1px solid black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
+.header_logo_area a {
+	width: 500px;
+	height: 200px;
+}
+
 .header_bottom {
 	height: 50px;
 	align-items: center;
