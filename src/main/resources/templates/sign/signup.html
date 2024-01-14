@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/my-layout::layout(~{this::head}, ~{this::main})}">
+
+<head>
+	<link rel="stylesheet" href="/css/sign/join.css">
+</head>
+
+<body>
+	<main>
+		<div class="container">
+			<form action="/user" method="post">
+				<div class="join_area">
+					<h1 class="join_tilte">
+						회원가입
+					</h1>
+					<div>
+						<label for="email">이메일*</label>
+						<input type="email" id="email" name="email" placeholder="예) Hoons@naver.com">
+					</div>
+					<div>
+						<label for="pass">비밀번호*</label>
+						<input type="password" id="pass" name="password" placeholder="영문, 숫자, 특수문자 조합 8~16자" required>
+					</div>
+					<!--<div>
+						<label for="pass">비밀번호 확인*</label>
+						<input type="password" id="pass" name="pass">
+					</div>
+					<div>
+						<label for="tel">휴대전화*</label>
+						<input type="tel" id="tel" name="tel">
+					<div>-->
+					<div class="button_area">
+						<button class="join_button"><span>가입하기</span></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</main>
+</body>
+
+</html>

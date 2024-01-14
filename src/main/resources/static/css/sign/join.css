@@ -34,3 +34,19 @@
 	padding-bottom: 46px;
 	font-weight: 600;
 }
+.button_area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.join_button {
+	height: 60px;
+	width: 300px;
+	border-radius: 20px;
+}
+.join_button > span {
+	font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 8px;
+}
+
