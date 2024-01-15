@@ -22,4 +22,14 @@ public class UserService {
 				.password(bCryptPasswordEncoder.encode(dto.getPassword()))
 				.build()).getId();
 	}
+	
+	public Member findById(Long userId) {
+        return memberRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+	
+	public Member findByEmail(String email) {
+	    return memberRepository.findByEmail(email)
+	            .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+	}
 }

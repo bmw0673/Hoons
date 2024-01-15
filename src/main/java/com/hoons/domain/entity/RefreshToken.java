@@ -14,9 +14,8 @@ import lombok.NoArgsConstructor;
 @Entity
 public class RefreshToken {
 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_sequence")
-	@SequenceGenerator(name = "member_sequence", sequenceName = "member_sequence", allocationSize = 1)
-	@Column(name = "id", updatable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "refreshToken_id", updatable = false)
 	@Id
 	private Long id;
 	

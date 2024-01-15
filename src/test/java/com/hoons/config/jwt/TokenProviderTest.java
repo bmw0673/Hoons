@@ -79,6 +79,10 @@ public class TokenProviderTest {
         String token = JwtFactory.withDefaultValues()
                 .createToken(issuer, secret_key);
 
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("토큰생성시 발급자 : " + issuer);
+        System.out.println("토큰생성시 비밀키 : " + secret_key);
+        System.out.println("token : " + token);
         // when
         boolean result = tokenProvider.validToken(token);
         

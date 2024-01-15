@@ -52,9 +52,12 @@ public class TokenProvider {
 	// JWT 토큰 유효성 검증 메서드 
 	public boolean validToken(String token) {
 		try {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>");
+			System.out.println("TokenProvide의 발급자 : " + issuer);
+			System.out.println("TokenProvide의 비밀키 : " + secret_key);
 			Jwts.parser()
 			.setSigningKey(secret_key)
-			.parseClaimsJwt(token);
+			.parseClaimsJws(token);
 			return true;
 		}catch (Exception e) { //복호화 과정에서 에러가 나면 유효하지 않은 토큰
 			return false;

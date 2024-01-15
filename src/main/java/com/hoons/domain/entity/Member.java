@@ -26,8 +26,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Member implements UserDetails{
 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_sequence")
-	@SequenceGenerator(name = "member_sequence", sequenceName = "member_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")
 	@Id
 	private Long id;
