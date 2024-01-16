@@ -17,19 +17,17 @@ public class UserDto {
 
    private String username;
 
-   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+   //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    private String password;
 
    private Set<AuthorityDto> authorityDtoSet;
 
-   public static UserDto from(User user) {
-      if(user == null) return null;
-
-      return UserDto.builder()
-              .username(user.getUsername())
-              .authorityDtoSet(user.getAuthorities().stream()
-                      .map(authority -> AuthorityDto.builder().authorityName(authority.getAuthorityName()).build())
-                      .collect(Collectors.toSet()))
-              .build();
-   }
+	/*
+	 * public static UserDto from(User user) { if(user == null) return null;
+	 * 
+	 * return UserDto.builder() .username(user.getUsername())
+	 * .authorityDtoSet(user.getAuthorities().stream() .map(authority ->
+	 * AuthorityDto.builder().authorityName(authority.getAuthorityName()).build())
+	 * .collect(Collectors.toSet())) .build(); }
+	 */
 }

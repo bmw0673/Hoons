@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    password: nowon1234!
-    url: jdbc:mariadb://database-1.cynidb9qykrb.ap-northeast-2.rds.amazonaws.com:3306/mymariadb
-    username: green
+    password: rmfls1234!
+    url: jdbc:mariadb://database-1.clxa5chqlggv.ap-northeast-2.rds.amazonaws.com:3306/MyDB
+    username: choi
   jpa:
     generate-ddl: true
     show-sql: true

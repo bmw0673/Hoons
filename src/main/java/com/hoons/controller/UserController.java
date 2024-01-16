@@ -25,23 +25,17 @@ public class UserController {
         response.sendRedirect("/api/user");
     }
 
-    //UserDto를 파라미터로 받아서 회원가입 메서드를 호출
-    @PostMapping("/signup")
-    public String signup(@RequestBody UserDto userDto) {
-    	ResponseEntity.ok(userService.signup(userDto));
-    	System.out.println("회원가입실행");
-    	return "redirect:/login";
-    }
-
-    @GetMapping("/user")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<UserDto> getMyUserInfo(HttpServletRequest request) {
-        return ResponseEntity.ok(userService.getMyUserWithAuthorities());
-    }
-
-    @GetMapping("/user/{username}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<UserDto> getUserInfo(@PathVariable String username) {
-        return ResponseEntity.ok(userService.getUserWithAuthorities(username));
-    }
+	/*
+	 * @GetMapping("/user")
+	 * 
+	 * @PreAuthorize("hasAnyRole('USER','ADMIN')") public ResponseEntity<UserDto>
+	 * getMyUserInfo(HttpServletRequest request) { return
+	 * ResponseEntity.ok(userService.getMyUserWithAuthorities()); }
+	 * 
+	 * @GetMapping("/user/{username}")
+	 * 
+	 * @PreAuthorize("hasAnyRole('ADMIN')") public ResponseEntity<UserDto>
+	 * getUserInfo(@PathVariable String username) { return
+	 * ResponseEntity.ok(userService.getUserWithAuthorities(username)); }
+	 */
 }

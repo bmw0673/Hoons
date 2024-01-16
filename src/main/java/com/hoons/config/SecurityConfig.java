@@ -55,13 +55,14 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
 
             .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+            
             .exceptionHandling(exceptionHandling -> exceptionHandling
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
             )
 
             .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                .requestMatchers("/api/hello", "/api/authenticate", "/api/signup"
+                .requestMatchers("/api/hello", "/api/authenticate", "/signup"
                 		,"/css/**","/images/**","/js/**"
                 		,"/join","/login"
                 		,"/").permitAll()
@@ -81,6 +82,7 @@ public class SecurityConfig {
 
             //.with(new JwtSecurityConfig(tokenProvider), customizer -> {});
         	.apply(new JwtSecurityConfig(tokenProvider));  // JwtSecurityConfig 적용
+        
         return http.build();
     }
 }
