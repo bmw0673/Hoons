@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{admin/layout/admin-layout::layout(~{this::head}, ~{this::admin_main})}">
+
+<head>
+	<link rel="stylesheet" href="/css/admin/Goods/detail.css">
+	<script>
+		function changedImg(element) {
+			console.log($(element)[0].files[0]);
+
+			var formData = new FormData();
+			formData.append("goodsImg", $(element)[0].files[0]);
+
+			$.ajax({
+				url: "/admin/temp-upload",
+				data: formData,
+				type: "post",
+				contentType: false,
+				processData: false,
+				success: function (result) {
+					var tempkey = $("<input type='hidden' name='tempKey'>").val(result.bucketKey);
+					var orgname = $("<input type='hidden' name='orgName'>").val(result.orgName);
+
+					//$(element).parents(".btn-file")
+					$(element).parent().css("background-image", `url(${result.url})`);
+					//tempkey.val(result.orgName);
+					$(element).after(tempkey, orgname);
+					//$(element).siblings(".orgName").val(result.orgName);
+				}
+			});
+		}
+	</script>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	<script>
+		$(document).ready(function () {
+			$('#summernote').summernote({
+				toolbar: [
+					['fontname', ['fontname']],
+					['fontsize', ['fontsize']],
+					['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+					['color', ['forecolor', 'color']],
+					['table', ['table']],
+					['para', ['ul', 'ol', 'paragraph']],
+					['height', ['height']],
+					['insert', ['picture', 'link', 'video']],
+					['view', ['fullscreen', 'help']]
+				],
+				height: "500",
+				lang: "ko-KR",
+				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
+				fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'],
+				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+					onImageUpload: function (files) {
+
+						uploadSummernoteImageFile(files[0], this);
+
+					},
+					onPaste: function (e) {
+						var clipboardData = e.originalEvent.clipboardData;
+						if (clipboardData && clipboardData.items && clipboardData.items.length) {
+							var item = clipboardData.items[0];
+							if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+								e.preventDefault();
+							}
+						}
+					}
+				}
+			});
+		});
+		/**
+		*이미지 파일 업로드
+		*/
+		function uploadSummernoteImageFile(file, editor) {
+
+			var formData = new FormData();
+			formData.append("goodsImg", file);
+
+			$.ajax({
+				data: formData,
+				type: "POST",
+				url: "/admin/temp-upload",
+				contentType: false,
+				processData: false,
+				success: function (result) {
+					//항상 업로드된 파일의 url이 있어야 한다.
+					$(editor).summernote('insertImage', result.url);
+
+				}
+			});
+		}
+	</script>
+</head>
+
+<body>
+	<th:block th:fragment="admin_main">
+		<h2 class="admin_list_title">상품상세</h2>
+		<div class="main_content">
+			<form method="post" action="/admin/goods" enctype="multipart/form-data" class="regi-form">
+				<div class="register">
+					<div class="box">
+						<div class="box_left">
+							<h3>
+								상품번호
+							</h3>
+						</div>
+						<div class="box_right">
+							<span>[[${goods.no}]]</span>
+						</div>
+					</div>
+					<div class="box">
+						<div class="box_left">
+							<h3>
+								카테고리
+							</h3>
+						</div>
+						<div class="box_right">
+							<span th:each="cate : ${goods.categories}">[[${cate.cateName}]]</span>
+						</div>
+					</div>
+					<div class="box">
+						<div class="box_left">
+							<h3>
+								상품명
+							</h3>
+						</div>
+						<div class="box_right">
+							<span>[[${goods.name}]]</span>
+						</div>
+					</div>
+					<div class="box">
+						<div class="box_left">
+							<h3>
+								판매가
+							</h3>
+						</div>
+						<div class="box_right">
+							<span>[[${#numbers.formatInteger(goods.price, 1, 'COMMA')}]]</span><span>원</span>
+							<!--<input name="price"><span>&#8361;</span>-->
+						</div>
+					</div>
+					<div class="box">
+						<div class="box_left">
+							<h3>
+								재고수량
+							</h3>
+						</div>
+						<div class="box_right">
+							<span>[[${#numbers.formatInteger(goods.stockQuantity, 1, 'COMMA')}]]</span>
+							<!--<input name="stockQuantity"><span>EA</span>-->
+						</div>
+					</div>
+					<div class="box box_mainimg">
+						<div class="box_left">
+							<h3>
+								대표이미지
+							</h3>
+						</div>
+						<div class="box_right">
+							<div class="add_img">
+								<label class="btn-file" th:each="img : ${goods.imgs}" th:if="${img.thumbnail}"
+									th:style="'background-image: url(' + '//s3.ap-northeast-2.amazonaws.com/yeseul.green.bucket/' + ${img.bucketKey} + ');'">
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="box box_subimg">
+						<div class="box_left">
+							<h3>
+								서브이미지
+							</h3>
+						</div>
+						<div class="box_right subimg">
+							<div class="add_img" th:each="img : ${goods.imgs}" th:unless="${img.thumbnail}">
+								<label class="btn-file"
+									th:style="'background-image: url(' + '//s3.ap-northeast-2.amazonaws.com/yeseul.green.bucket/' + ${img.bucketKey} + ');'">
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="box">
+						<div class="box_left" style="flex-flow: column;">
+							<h3>
+								상품상세설명
+							</h3><br>
+						</div>
+						<div class="box_right">
+							[(${goods.content})]
+							<!--<textarea id="summernote" name="content"></textarea>-->
+						</div>
+					</div>
+				</div>
+				<div class="button_area">
+					<button>수 정 하 기</button>
+				</div>
+			</form>
+		</div>
+	</th:block>
+</body>
+
+</html>

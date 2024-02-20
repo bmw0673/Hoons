@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+.main_container {
+	margin: 20px auto 100px auto;
+	width: 1200px;
+}
+
+.main_container>.title-area {
+	margin: 40px 0 60px 0;
+}
+
+.main_container>.title-area>h2 {
+	display: flex;
+	justify-content: center;
+	font-size: 30px;
+	letter-spacing: 5px;
+}
+
+.main_container>.title-area>p {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 30px;
+	color: #a9a9a9;
+	font-size: 20px;
+}
+
+.main_container>.table-area>table {
+	border-top: 1px solid #999999;
+	width: 100%;
+}
+
+th {
+	padding: 10px 10px 10px 14px;
+	border-bottom: 1px solid #dbdbdb;
+	background: #fbfbfb;
+	font-size: 16px;
+	line-height: 1.5;
+	font-family: Malgun Gothic, "맑은 고딕", AppleGothic, Dotum, "돋움", sans-serif;
+	color: #333;
+	font-weight: bold;
+}
+
+td {
+	padding: 13px 10px 15px 10px;
+	border-bottom: 1px solid #dbdbdb;
+	text-align: center;
+	font-size: 16px;
+    line-height: 1.5;
+    font-family: Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    color: #333;
+}
+
+.subject:hover {
+	text-decoration: underline;
+}

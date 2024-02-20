@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/admin-layout::layout(~{this::head}, ~{this::admin_main})}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<link rel="stylesheet" href="/css/admin/dashBorad.css">
 </head>
+
 <body>
-	<h1>관리자페이지입니다.</h1>
-	<a href="/">HOME</a>
+	<th:block th:fragment="admin_main">
+		<div class="dash_board_hd">
+		</div>
+	<th:block>
 </body>
+
 </html>

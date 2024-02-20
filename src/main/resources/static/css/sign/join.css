@@ -40,13 +40,16 @@
 	align-items: center;
 }
 .join_button {
-	height: 60px;
-	width: 300px;
-	border-radius: 20px;
+	height: 50px;
+    width: 300px;
+    border-radius: 12px;
+    border: none;
+    background-color: #222;
+    cursor: pointer;
 }
 .join_button > span {
-	font-size: 20px;
+	font-size: 16px;
     font-weight: bold;
-    letter-spacing: 8px;
+    color: #fff;
 }
 

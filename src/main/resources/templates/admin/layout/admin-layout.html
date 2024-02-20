@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(myhead, mymain)">
+
+<head>
+	<meta charset="UTF-8">
+	<title>A31</title>
+	<link rel="stylesheet" href="/css/admin/layout/reset.css">
+	<link rel="stylesheet" href="/css/admin/layout/header.css">
+	<link rel="stylesheet" href="/css/admin/layout/side.css">
+	<!-- <script src="/webjars/jquery/jquery.min.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+	</script>
+	<th:block th:replace="${myhead}"></th:block>
+</head>
+
+<body>
+	<th:block th:replace="~{admin/layout/admin-header::header}"></th:block>
+	<main>
+		<th:block th:replace="~{admin/layout/admin-side::side}"></th:block>
+		<div class="main_container">
+			<div th:replace="${mymain}"></div>
+		</div>
+	</main>
+</body>
+
+</html>

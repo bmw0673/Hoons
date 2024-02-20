@@ -81,6 +81,7 @@ img {
 	align-items: center;
 	border-bottom: 1px solid rgba(34,34,34,0.5);
 	font-size: 20px;
+	justify-content: space-between;
 }
 .header_bottom nav ul li {
 	margin-right: 30px;

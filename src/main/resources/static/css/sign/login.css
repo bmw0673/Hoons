@@ -7,7 +7,7 @@
 }
 
 .login_area {
-	width: 400px;
+	width: 360px;
 	padding: 60px 0px 160px;
 }
 .login_title {
@@ -45,14 +45,16 @@
 }
 .login_button {
 	height: 50px;
-    width: 100%;
-    border-radius: 20px;
+    width: 300px;
+    border-radius: 12px;
+    border: none;
+    background-color: #222;
     cursor: pointer;
 }
 .login_button > span {
-	font-size: 20px;
+	font-size: 16px;
     font-weight: bold;
-    letter-spacing: 8px;
+    color: #fff;
 }
 
 .login_sub_box {

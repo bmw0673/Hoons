@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+	th:replace="~{admin/layout/admin-layout::layout(~{this::head}, ~{this::admin_main})}">
+
+<head>
+	<link rel="stylesheet" href="/css/admin/goods/goods-list.css">
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+</head>
+
+<body>
+	<th:block th:fragment="admin_main">
+		<h2 class="admin_list_title">상품조회</h2>
+		<form action="/remove" method="post">
+			<div class="goodscheck">
+				<table class="goodscheck_box">
+					<thead>
+						<tr>
+							<td>선택</td>
+							<td>상품번호</td>
+							<td>카테고리</td>
+							<td>상품명</td>
+							<td>등록일자</td>
+							<td>수정일자</td>
+							<td>판매가</td>
+							<td>재고</td>
+							<td>대표이미지</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="goods : ${result.dtoList}">
+							<td><input type="checkbox" th:value="${goods.no}" name="no"></td>
+							<td><a th:href="@{|/admin/goods/${goods.no}|}">[[${goods.no}]]</a></td>
+							<td>
+								<span th:each="cate : ${goods.categories}">
+									[[${cate.cateName}]]
+								</span>
+							</td>
+							<td th:text="${goods.name}">상품명</td>
+							<td th:text="${#temporals.format(goods.createdDate, 'yyyy-MM-dd HH:mm:ss')}">등록일자</td>
+							<td th:text="${#temporals.format(goods.updatedDate, 'yyyy-MM-dd HH:mm:ss')}">수정일자</td>
+							<td th:text="${#numbers.formatInteger(goods.price, 1, 'COMMA')}">판매가</td>
+							<td th:text="${#numbers.formatInteger(goods.stockQuantity, 1, 'COMMA')}">재고</td>
+							<td class="img_area">
+								<img height="100px" 
+									th:src="|//s3.ap-northeast-2.amazonaws.com/yeseul.green.bucket/${goods.imgs.get(0).bucketKey}|">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<ul class="page-list">
+					<li class="page-item" th:if="${result.prev}">
+						<a class="page-link" th:href="@{/admin/goods/list(page=${result.start -1})}"
+							tabindex="-1">Previous</a>
+					</li>
+
+					<li th:each="page:${result.pageList}">
+						<a th:href="@{/admin/goods/list(page=${page})}">[ [[${page}]] ]
+						</a>
+					</li>
+
+					<l1 class="page-item" th:if="${result.next}">
+						<a class="page-link" th:href="@{/admin/goods/list(page=${result.end+1})}">[ Next ]</a>
+					</l1>
+				</ul>
+			</div>
+		</form>
+		</div>
+	</th:block>
+</body>
+
+</html>

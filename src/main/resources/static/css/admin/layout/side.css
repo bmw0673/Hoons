@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+.side_bar {
+	left: 0;
+	min-width: 290px;
+	border-right: 1px solid;
+	display: flex;
+	flex-direction: column;
+	z-index: 10;
+	color: #ecf0f1;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #fff;
+	box-shadow: 0 1px 1px 0 #001c244d, 1px 1px 1px 0 #001c2426, -1px 1px 1px 0 #001c2426;
+}
+
+.side_top {
+	height: 130px;
+	border-bottom: 1px solid #485a37;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 550;
+    font-size: 20px;
+    border-bottom: 1px solid #485a37;
+}
+.side_top_main > p {
+	font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.side_top_main > p:first-of-type  {
+	margin-bottom: 15px;
+}
+
+.side_bottom {
+	padding: 0 32px;
+	margin: 60px 0 0 0 ;
+	font-size: 20px
+}
+.side_bottom > ul > li {
+    margin-bottom: 15px; /* 3. 네비게이션 아이템 간격 일관성 */
+}
+
+.tab > a {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	color: #545b64;
+	padding: 15px 10px;
+	font-weight: bold;
+	align-items: center;
+	position: relative;
+}
+.tab > a:hover {
+	color: #222;
+}
+
+.tab > a::before {
+	content: '';
+    display: inline-block;
+    width: 70px;
+    height: 20px;
+    background: url(/images/arrow_right.svg) no-repeat center center;
+    background-size: cover;
+    position: absolute;
+    left: -40px;
+}
+.tab:first-child > a::before {
+	display: none;
+}
+
+.sub_tab {
+	display: none;
+	margin: 15px 0;
+}
+.sub_tab > a{
+	padding: 15px 10px;
+    color: #545b64;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+}
+.sub_tab a:hover {
+	color:  #222;
+}
+
+.arrow {
+	background: url(/images/arrow_right.svg);
+	background-repeat : no-repeat;
+    background-size: 100% auto; /* 너비를 100%로 조정, 높이는 자동으로 조정됩니다. */
+}

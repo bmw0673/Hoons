@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<section th:fragment="side" class="side_bar">
+		<nav class="side_bottom">
+			<ul>
+				<li class="tab">
+					<a href="/admin">관리자 메인</a>
+				</li>
+				<li class="tab">
+					<a>상품관리</a>
+					<ul class="sub_tab">
+						<a href="/admin/goods"><li>상품등록</li></a>
+						<a href="/admin/goods/list"><li>상품조회</li></a>
+					</ul>
+				</li>
+				<li class="tab">
+					<a>카테고리 관리</a>
+					<ul class="sub_tab">
+						<a href="/admin/cates"><li>카테고리 관리</li></a>
+					</ul>
+				</li>
+				<li class="tab">
+					<a>게시판 관리</a>
+					<ul class="sub_tab">
+						<a href="/admin/notices"><li>공지사항</li></a>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('.tab');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        const subTab = this.querySelector('.sub_tab');
+        if (subTab) {
+          subTab.style.display = (subTab.style.display === 'block') ? 'none' : 'block';
+        }
+      });
+    });
+  });
+</script>
+	</section>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/my-layout :: layout(~{this::head},~{this::main} )}">
+<head>
+<link rel="stylesheet" href="/css/board/notice.css">
+
+</head>
+<main>
+	<div class="main_container">
+		<div class="title-area">
+			<h2>NOTICE</h2>
+			<p>공지사항입니다.</p>
+		</div>
+		<div class="table-area">
+			<table>
+				<colgroup>
+					<col style="width: 7%">
+					<col style="width: 39%">
+					<col style="width: 13%">
+					<col style="width: 8%">
+					<col style="width: 16%">
+				</colgroup>
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>날짜</th>
+						<th>작성자</th>
+						<th>조회</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td><a class="subject" href="/notices/1">TEST</a></td>
+						<td>2024.02.20</td>
+						<td>관리자</td>
+						<td>100</td>
+					</tr>
+				</tbody>
+			</table>
+			<ul>
+			</ul>
+		</div>
+	</div>
+</main>
+</html>

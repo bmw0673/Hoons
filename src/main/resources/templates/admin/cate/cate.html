@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{admin/layout/admin-layout::layout(~{this::head}, ~{this::admin_main})}">
+
+<head>
+	<link rel="stylesheet" href="/css/admin/cates/cate.css">
+</head>
+
+<body>
+	<th:block th:fragment="admin_main">
+		<h2 class="admin_list_title">카테고리관리</h2>
+		<div class="main_content">
+			<form method="post" action="/admin/category" class="regi-form">
+				<div class="register">
+					<div class="box">
+						<div class="box_left">
+							<h3>
+								카테고리 소속
+							</h3>
+						</div>
+						<div class="box_right">
+							<select name="parentId">
+								<option value="">===상위코테고리 선택===</option>
+								<option th:each="cate : ${list}" th:value="${cate.cateId}">[[${cate.cateName}]]</option>
+							</select>
+						</div>
+					</div>
+					<div class="box">
+						<div class="box_left">
+							<h3>
+								카테고리명
+							</h3>
+						</div>
+						<div class="box_right">
+							<input name="categoryName">
+						</div>
+					</div>
+				</div>
+				<div class="button_area">
+					<button>저 장</button>
+				</div>
+			</form>
+		</div>
+		<br>
+		<!--<div class="main_content second">
+			<ul>
+				<li>1차 카테고리(0)
+					<ul>
+						<li>2차 카테고리</li>
+					</ul>
+				</li>
+				<li>1차 카테고리(0)
+					<ul>
+						<li>2차 카테고리</li>						
+						<li>2차 카테고리</li>						
+						<li>2차 카테고리</li>						
+					</ul>
+				</li>
+			</ul>
+		</div>-->
+	</th:block>
+</body>
+
+</html>

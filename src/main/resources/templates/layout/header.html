@@ -5,23 +5,17 @@
 	<section id="header_container">
 		<div class="header_top flex">
 			<ul class="flex">
-				<li>
+				<li sec:authorize="hasRole('ADMIN')">
 					<a href="/admin">ADMIN</a>
 				</li>
 				<li>
 					<a href="#">MYPAGE</a>
 				</li>
-				<li>
+				<li sec:authorize="isAnonymous()">
 					<a href="/login">LOGIN</a>
 				</li>
-				<li>
+				<li sec:authorize="isAuthenticated()">
 					<a href="/logout">LOGOUT</a>
-				</li>
-				<li>
-					<a href="/join">JOIN</a>
-				</li>
-				<li>
-					<a href="#">NOTICE</a>
 				</li>
 			</ul>
 		</div>
@@ -38,6 +32,13 @@
 					</li>
 					<li>
 						<a href="#">MODEL_INFO</a>
+					</li>
+				</ul>
+			</nav>
+			<nav>
+				<ul class="flex">
+					<li>
+						<a href="notices">NOTICE</a>
 					</li>
 				</ul>
 			</nav>

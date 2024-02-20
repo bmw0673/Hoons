@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+.main_content{
+	background-color: #fff;
+	display: inline-block;
+	padding: 50px 50px 50px 50px;
+}
+
+.main_content > .regi-form {
+	width: 1200px;
+}
+.main_content> .regi-form >.register {
+    width: 1200px;
+    min-width: 1200px;
+    width: 100%;
+    border: 1px solid #222;
+}
+
+.register > .box {
+	display: flex;
+}
+.register > .box > .box_left {
+	width: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e4e7e9;
+	font-weight: bold;
+	font-size: 18px;
+	border-right: 1px solid #222;
+	border-bottom: 1px solid #222;
+}
+.register > .box > .box_left > .annotation {
+	font-size: 12px;
+	text-align: center;
+	line-height: 20px;
+}
+
+.register > .box:last-child > .box_left{
+	border-bottom: none;
+}
+.register > .box > .box_right {
+	flex: 1;
+	display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    border-bottom: 1px solid #222;
+}
+.register > .box:last-child > .box_right{
+	border-bottom: none;
+}
+.box_right > input{
+	height: 100%;
+}
+.box_right > span {
+	padding-left: 5px;
+}
+.box_right > textarea {
+	resize: none;
+}
+.box3 > .box_right > input {
+	width: 400px;
+}
+.box4 {
+	height: 150px;
+}
+.subimg {
+	padding-left: 10px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    grid-gap: 19px;
+}
+
+
+.add_img {
+	width: 150px;
+	height: 150px;
+}
+.button_area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 160px;
+}
+.button_area > button {
+	width: 300px;
+    height: 90px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #454545;
+    font-size: 25px;
+    font-weight: 550;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button_area > button:hover {
+    background-color: #101010; /* hover 시 배경색 변경 */
+}
+
+.btn-file {
+	display: flex;
+	width: 150px;
+	height: 150px;
+	border: 1px dashed #222;
+	justify-content: center;
+	align-items: center;
+	font-size: 32px;
+	background-color:#fff;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.btn-file img {
+	cursor: pointer;
+	width: 30%;
+    height: 30%;
+    opacity: 15%;
+}
+
+input[type=file] {
+	display: none;
+}
+.box_right > textarea {
+	width: 750px;
+	height: 100px;
+	padding: 10px;
+	
+}
+.note-editor {
+	width: 100%;
+}
