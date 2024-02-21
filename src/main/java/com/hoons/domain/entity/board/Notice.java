@@ -31,10 +31,13 @@ public class Notice {
 	@Column(nullable = false)
 	private String title;
 	
+	@Column(columnDefinition = "VARCHAR(255) DEFAULT '관리자'")
+	private String writer;
+	
 	@Column(columnDefinition = "longtext")
 	private String content;
 
-	@ColumnDefault(value = "0")
+	@ColumnDefault("0") //default 0
 	private int readCount;
 	
 	// 작성 날짜
