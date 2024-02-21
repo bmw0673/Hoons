@@ -85,7 +85,7 @@ public class S3FileUploadUtilV3 {
 	@Value("${cloud.aws.s3.upload-temp}")
 	private String temp;
 
-	@Value("${cloud.aws.s3.upload-path}")
+	@Value("${cloud.aws.s3.upload-src")
 	private String upload;
 
 	
