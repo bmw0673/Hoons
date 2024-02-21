@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 
 ### STS ###
-applications-secret.properties
+application-secret.properties
 .apt_generated
 .classpath
 .factorypath
