@@ -20,18 +20,4 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AdminController {
 
-	private final S3FileUploadUtilV3 s3FileUploadUtilV3;
-	private final BoardService boardService; 
-	
-	@PostMapping("/notices")
-	public String notice(NoticeDTO dto) {
-		boardService.saveNotice(dto);
-		return "redirect:/admin/notices";
-	}
-	
-	@ResponseBody
-	@PostMapping("/temp-upload")
-	public Map<String, String> tempUpload(@RequestParam(name = "img") MultipartFile img) {
-		return s3FileUploadUtilV3.s3TempUpload(img);
-	}
 }

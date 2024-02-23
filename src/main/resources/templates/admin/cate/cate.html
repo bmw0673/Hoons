@@ -10,7 +10,7 @@
 	<th:block th:fragment="admin_main">
 		<h2 class="admin_list_title">카테고리관리</h2>
 		<div class="main_content">
-			<form method="post" action="/admin/category" class="regi-form">
+			<form method="post" action="/admin/cates" class="regi-form">
 				<div class="register">
 					<div class="box">
 						<div class="box_left">
@@ -21,7 +21,7 @@
 						<div class="box_right">
 							<select name="parentId">
 								<option value="">===상위코테고리 선택===</option>
-								<option th:each="cate : ${list}" th:value="${cate.cateId}">[[${cate.cateName}]]</option>
+								<option th:each="cate : ${list}" th:if="${cate.parent eq null}" th:value="${cate.no}">[[${cate.name}]]</option>
 							</select>
 						</div>
 					</div>
@@ -32,7 +32,7 @@
 							</h3>
 						</div>
 						<div class="box_right">
-							<input name="categoryName">
+							<input name="cateName">
 						</div>
 					</div>
 				</div>
@@ -42,22 +42,17 @@
 			</form>
 		</div>
 		<br>
-		<!--<div class="main_content second">
+		<div class="main_content second">
 			<ul>
-				<li>1차 카테고리(0)
-					<ul>
-						<li>2차 카테고리</li>
-					</ul>
-				</li>
-				<li>1차 카테고리(0)
-					<ul>
-						<li>2차 카테고리</li>						
-						<li>2차 카테고리</li>						
-						<li>2차 카테고리</li>						
+				<li th:each="cate : ${list}" th:if="${cate.parent eq null}" class="tab" >[[${cate.name}]]
+					<ul class="sub_tab">
+						<li th:each="child : ${list}" th:if="${child.parent != null and child.parent.name eq cate.name}">
+							[[${child.name}]]
+						</li>
 					</ul>
 				</li>
 			</ul>
-		</div>-->
+		</div>
 	</th:block>
 </body>
 

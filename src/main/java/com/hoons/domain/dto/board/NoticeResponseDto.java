@@ -1,28 +1,24 @@
 package com.hoons.domain.dto.board;
 
-import com.hoons.domain.entity.board.Notice;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-public class NoticeDTO {
+@Getter
+public class NoticeResponseDto {
 	
+	private Long no;
 	private String title;
-	
 	private String content;
-
-	public Notice toEntity() {
-		return Notice.builder()
-				.title(title)
-				.content(content)
-				.writer("관리자")
-				.build();
-	}
+	private String writer;
+	private int readCount;
+	private LocalDateTime createdDateTime;
 	
 }

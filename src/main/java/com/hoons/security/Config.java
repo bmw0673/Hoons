@@ -45,12 +45,11 @@ public class Config {
 				.formLogin(
 						formLogin -> formLogin
 							.loginPage("/login")
-							.loginProcessingUrl("/login")
+							.loginProcessingUrl("/login")// form의 action 경로url, Default는"/login"
 							.usernameParameter("email") // default=username--form
 							.passwordParameter("pass") // default=password--form
 							.permitAll().defaultSuccessUrl("/") // 로그인 성공시 url (우선순위 마지막)
 							//.failureUrl("/login") // 로그인 실패시 url (우선순위 마지막)
-							.loginProcessingUrl("/login") // form의 action 경로url, Default는"/login"
 						)
 				.logout(logout -> logout
 						.logoutSuccessUrl("/login")

@@ -23,13 +23,4 @@ public class AdminPageController {
 		return "admin/goods/list";
 	}
 	
-	@GetMapping("/cates")
-	public String cate() {
-		return "admin/cate/cate";
-	}
-	
-	@GetMapping("/notices")
-	public String notice() {
-		return "admin/board/notice";
-	}
 }

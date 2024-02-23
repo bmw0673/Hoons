@@ -35,7 +35,7 @@ public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long no;
+	private Long no;
 
 	@Column(nullable = false, unique = true)
 	private String email;

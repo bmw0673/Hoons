@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.hoons.domain.dto.board.NoticeResponseDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +28,7 @@ public class Notice {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long no;
+	private Long no;
 
 	@Column(nullable = false)
 	private String title;
@@ -44,5 +46,18 @@ public class Notice {
 	@CreationTimestamp
 	private LocalDateTime createdDateTime;
 
+	public NoticeResponseDto toResponseDto() {
+		return NoticeResponseDto.builder()
+				.no(no)
+				.title(title)
+				.content(content)
+				.writer(writer)
+				.readCount(readCount)
+				.createdDateTime(createdDateTime)
+				.build();
+	}
 	
+	public void read() {
+		this.readCount = readCount+1; 
+	}
 }

@@ -31,16 +31,27 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr th:each="dto : ${list.dtoList}">
 						<td>1</td>
-						<td><a class="subject" href="/notices/1">TEST</a></td>
-						<td>2024.02.20</td>
-						<td>관리자</td>
-						<td>100</td>
+						<td><a class="subject" th:href="|/notices/${dto.no}|">[[${dto.title}]]</a></td>
+						<td th:text="${#temporals.format(dto.createdDateTime, 'yyyy-MM-dd')}"></td>
+						<td>[[${dto.writer}]]</td>
+						<td>[[${dto.readCount}]]</td>
 					</tr>
 				</tbody>
 			</table>
-			<ul>
+			<ul class="page-list">
+				<li class="page-item" th:if="${list.prev}"><a
+					class="page-link"
+					th:href="@{/notices(page=${list.start -1})}"
+					tabindex="-1">Previous</a></li>
+
+				<li th:each="page:${list.pageList}"><a
+					th:href="@{/notices(page=${page})}">[ [[${page}]] ] </a></li>
+
+				<l1 class="page-item" th:if="${list.next}"> <a
+					class="page-link"
+					th:href="@{/notices(page=${list.end+1})}">[ Next ]</a> </l1>
 			</ul>
 		</div>
 	</div>

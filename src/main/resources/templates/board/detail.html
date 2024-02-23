@@ -14,19 +14,19 @@
 		</div>
 		<div class="notice">
 			<div class="notice-title">
-				<h2>TEST</h2>
+				<h2>[[${dto.title}]]</h2>
 			</div>
 			<div class="view-info">
 				<div>
-					<span class="bold">관리자</span> <span>2024.02.02 10:51:55</span>
+					<span class="bold">[[${dto.writer}]]</span> <span th:text="${#temporals.format(dto.createdDateTime, 'yyyy-MM-dd hh:mm:dd')}"></span>
 				</div>
 				<div>
 					<span class="bold">조회수</span>
-					<span>3,599</span>
+					<span>[[${dto.readCount}]]</span>
 				</div>
 			</div>
 			<div class="content">
-				
+				[(${dto.content})]
 			</div>
 			<div class="view-line">
 				<div class="line"></div>
