@@ -6,12 +6,13 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.hoons.domain.dto.cate.CateResponseDto;
-import com.hoons.domain.dto.cate.CateSaveDto;
+import com.hoons.domain.dto.cate.CateResponseDTO;
+import com.hoons.domain.dto.cate.CateSaveDTO;
 import com.hoons.domain.entity.cate.CateRepogitory;
 import com.hoons.domain.entity.cate.Category;
 import com.hoons.service.CateService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class CateServiceProcess implements CateService{
 	private final CateRepogitory cateRepo;
 	
 	@Override
-	public void save(CateSaveDto dto) {
+	public void save(CateSaveDTO dto) {
 		
 		if(dto.getParentId()==null) {
 			cateRepo.save(dto.toEntity(null));
@@ -33,15 +34,26 @@ public class CateServiceProcess implements CateService{
 	}
 
 	/**
-	 * 카테고리 등록
-	 * 부모가 null 값만 가져옵니다.
+	 * 카테고리 등록 불러오기
 	 */
 	@Override
-	public List<CateResponseDto> getList() {
+	public List<CateResponseDTO> getList() {
 		Sort sort = Sort.by("no").descending();
 		return cateRepo.findAll(sort).stream()
 		.map(Category::toDto)
 		.collect(Collectors.toList());
+	}
+
+	/**
+	 * 자식 카테고리 불러오기
+	 */
+	@Transactional
+	@Override
+	public List<CateResponseDTO> getChildList(Long parentNo) {
+		Category parent = cateRepo.findById(parentNo).orElseThrow(); 
+		return cateRepo.findByParent(parent).stream()
+				.map(Category::toDto)
+				.collect(Collectors.toList());
 	}
 
 }

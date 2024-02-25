@@ -4,91 +4,81 @@
 
 <head>
 	<link rel="stylesheet" href="/css/admin/Goods/detail.css">
-	<script>
-		function changedImg(element) {
-			console.log($(element)[0].files[0]);
-
-			var formData = new FormData();
-			formData.append("goodsImg", $(element)[0].files[0]);
-
-			$.ajax({
-				url: "/admin/temp-upload",
-				data: formData,
-				type: "post",
-				contentType: false,
-				processData: false,
-				success: function (result) {
-					var tempkey = $("<input type='hidden' name='tempKey'>").val(result.bucketKey);
-					var orgname = $("<input type='hidden' name='orgName'>").val(result.orgName);
-
-					//$(element).parents(".btn-file")
-					$(element).parent().css("background-image", `url(${result.url})`);
-					//tempkey.val(result.orgName);
-					$(element).after(tempkey, orgname);
-					//$(element).siblings(".orgName").val(result.orgName);
-				}
-			});
-		}
-	</script>
+	<script src="/js/admin/goods/change-img.js"></script>
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	<script src="/js/admin/goods/summerNote.js"></script>
 	<script>
-		$(document).ready(function () {
-			$('#summernote').summernote({
-				toolbar: [
-					['fontname', ['fontname']],
-					['fontsize', ['fontsize']],
-					['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
-					['color', ['forecolor', 'color']],
-					['table', ['table']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['height', ['height']],
-					['insert', ['picture', 'link', 'video']],
-					['view', ['fullscreen', 'help']]
-				],
-				height: "500",
-				lang: "ko-KR",
-				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
-				fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'],
-				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-					onImageUpload: function (files) {
+		function deleteGoods(element) {
+			if (confirm("상품을 삭제하시겠습니까?\n\n*삭제한 상품은 복구할 수 없습니다.")) {
+				var method = $("<input type='hidden' name='_method'>").val("delete");
+				$(element).after(method);
 
-						uploadSummernoteImageFile(files[0], this);
+				var form = $("form.regi-form");
+				form.attr("enctype", "application/x-www-form-urlencoded");
+				form.submit();
+			} else {
+				alert("취소하셨습니다.");
+			}
+		}
+	</script>
+	<script>
+		function update() {
+			$("#updateBtn").hide();
+			$(".span").hide();
+			$("#completeBtn").show();
+			$(".input").show();
+			$(".block").css("display", "flex");
+			$(".note-frame").show();
+			alert("내용을 수정한 후 완료버튼을 눌러주세요");
+		}
+	</script>
+	<script>
+		function updateChildCate(parentNo) {
+			// 새로운 자식 카테고리 옵션을 추가
+			let child = $('#childCategory');
 
-					},
-					onPaste: function (e) {
-						var clipboardData = e.originalEvent.clipboardData;
-						if (clipboardData && clipboardData.items && clipboardData.items.length) {
-							var item = clipboardData.items[0];
-							if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-								e.preventDefault();
-							}
-						}
-					}
-				}
-			});
-		});
-		/**
-		*이미지 파일 업로드
-		*/
-		function uploadSummernoteImageFile(file, editor) {
-
-			var formData = new FormData();
-			formData.append("goodsImg", file);
+			if (parentNo == 9999) {
+				child.empty()
+				return
+			}
 
 			$.ajax({
-				data: formData,
-				type: "POST",
-				url: "/admin/temp-upload",
-				contentType: false,
-				processData: false,
-				success: function (result) {
-					//항상 업로드된 파일의 url이 있어야 한다.
-					$(editor).summernote('insertImage', result.url);
-
+				type: 'GET',
+				url: '/admin/cates/' + parentNo, // 자식 카테고리를 가져올 API 엔드포인트 설정
+				success: function (data) {
+					// 자식 카테고리 추가 전 비우기
+					child.empty()
+					$.each(data, function (index, category) {
+						child.append('<option value="' + category.no + '">' + category.name + '</option>');
+					});
+				},
+				error: function () {
+					console.error('Failed to fetch child categories');
 				}
 			});
+		}
+
+	</script>
+	<script>
+		function updateGoods(element) {
+			// 카테고리 선택 여부 확인
+			let parentVal = $("#parentCategory").val()
+			if(parentVal == 9999){
+				alert("카테고리를 선택해주세요");
+				return;
+			}
+			
+			
+			if (confirm("상품을 수정하시겠습니까?")) {
+				var method = $("<input type='hidden' name='_method'>").val("put");
+				$(element).after(method);
+				var form = $("form.regi-form");
+				form.submit();
+			} else {
+				alert("취소하셨습니다.");
+			}
 		}
 	</script>
 </head>
@@ -96,8 +86,8 @@
 <body>
 	<th:block th:fragment="admin_main">
 		<h2 class="admin_list_title">상품상세</h2>
-		<div class="main_content">
-			<form method="post" action="/admin/goods" enctype="multipart/form-data" class="regi-form">
+		<div class="main_content shadow">
+			<form method="post" th:action="|/admin/goods/${goods.no}|" enctype="multipart/form-data" class="regi-form">
 				<div class="register">
 					<div class="box">
 						<div class="box_left">
@@ -116,7 +106,21 @@
 							</h3>
 						</div>
 						<div class="box_right">
-							<span th:each="cate : ${goods.categories}">[[${cate.cateName}]]</span>
+							<span class="span">
+								[[${goods.cateDTO.parent.name}]] /
+							</span>
+							<span class="span">
+								[[${goods.cateDTO.name}]]
+							</span>
+							<select id="parentCategory" onchange="updateChildCate(this.value)" class="block">
+								<option value="9999">====카테고리를 선택해주세요====</option>
+								<option th:each="cate : ${cateList}" th:if="${cate.parent eq null}"
+									th:value="${cate.no}">[[${cate.name}]]</option>
+							</select>
+							<select name="cateNo" id="childCategory" class="block">
+								<option th:each="category : ${categories}" th:value="${category.id}">
+									[[${category.name}]]</option>
+							</select>
 						</div>
 					</div>
 					<div class="box">
@@ -126,7 +130,8 @@
 							</h3>
 						</div>
 						<div class="box_right">
-							<span>[[${goods.name}]]</span>
+							<span class="span">[[${goods.name}]]</span>
+							<input name="name" class="input" th:value="${goods.name}">
 						</div>
 					</div>
 					<div class="box">
@@ -136,8 +141,9 @@
 							</h3>
 						</div>
 						<div class="box_right">
-							<span>[[${#numbers.formatInteger(goods.price, 1, 'COMMA')}]]</span><span>원</span>
-							<!--<input name="price"><span>&#8361;</span>-->
+							<span class="span">[[${#numbers.formatInteger(goods.price, 1,
+								'COMMA')}]]<span>원</span></span>
+							<input name="price" class="input" th:value="${goods.price}">
 						</div>
 					</div>
 					<div class="box">
@@ -147,8 +153,9 @@
 							</h3>
 						</div>
 						<div class="box_right">
-							<span>[[${#numbers.formatInteger(goods.stockQuantity, 1, 'COMMA')}]]</span>
-							<!--<input name="stockQuantity"><span>EA</span>-->
+							<span class="span">[[${#numbers.formatInteger(goods.stockQuantity, 1,
+								'COMMA')}]]<span>EA</span></span>
+							<input name="stockQuantity" class="input" th:value="${goods.stockQuantity}">
 						</div>
 					</div>
 					<div class="box box_mainimg">
@@ -159,8 +166,14 @@
 						</div>
 						<div class="box_right">
 							<div class="add_img">
-								<label class="btn-file" th:each="img : ${goods.imgs}" th:if="${img.thumbnail}"
-									th:style="'background-image: url(' + '//s3.ap-northeast-2.amazonaws.com/yeseul.green.bucket/' + ${img.bucketKey} + ');'">
+								<label class="btn-file span" th:each="img : ${goods.imgs}" th:if="${img.thumbnail}"
+									th:style="'background-image: url(' + ${img.url} + ');'">
+								</label>
+								<label class="btn-file block" th:each="img : ${goods.imgs}" th:if="${img.thumbnail}"
+									th:style="'background-image: url(' + ${img.url} + ');'">
+									<input type="file" accept="image/*" onchange="changedImg(this)">
+									<input name="newName" type="hidden" th:value="${img.newName}">
+									<img src="/images/icon/add.svg">
 								</label>
 							</div>
 						</div>
@@ -173,8 +186,19 @@
 						</div>
 						<div class="box_right subimg">
 							<div class="add_img" th:each="img : ${goods.imgs}" th:unless="${img.thumbnail}">
-								<label class="btn-file"
-									th:style="'background-image: url(' + '//s3.ap-northeast-2.amazonaws.com/yeseul.green.bucket/' + ${img.bucketKey} + ');'">
+								<label class="btn-file span" th:style="'background-image: url(' + ${img.url} + ');'">
+								</label>
+								<label class="btn-file block" th:style="'background-image: url(' + ${img.url} + ');'">
+									<input name="newName" type="hidden" th:value="${img.newName}">
+									<input type="file" accept="image/*" onchange="changedImg(this)">
+									<img src="/images/icon/add.svg">
+								</label>
+							</div>
+							<div th:if="${goods.imgs.size() lt 5}"
+								th:each="i : ${#numbers.sequence(goods.imgs.size(), 5)}">
+								<label class="btn-file block">
+									<input type="file" accept="image/*" onchange="changedImg(this)">
+									<img src="/images/icon/add.svg">
 								</label>
 							</div>
 						</div>
@@ -185,18 +209,23 @@
 								상품상세설명
 							</h3><br>
 						</div>
-						<div class="box_right">
+						<div class="box_right span">
 							[(${goods.content})]
-							<!--<textarea id="summernote" name="content"></textarea>-->
 						</div>
+						<th:block class="block">
+							<textarea id="summernote" name="content">[(${goods.content})]</textarea>
+						</th:block>
 					</div>
 				</div>
 				<div class="button_area">
-					<button>수 정 하 기</button>
+					<button type="button" id="completeBtn" onclick="updateGoods(this)">완 료</button>
+					<button type="button" id="updateBtn" onclick="update()">수 정</button>
+					<button type="button" onclick="deleteGoods(this)">삭 제</button>
+					<button>목 록</button>
 				</div>
 			</form>
 		</div>
-	</th:block>
+	</th:block>z
 </body>
 
 </html>

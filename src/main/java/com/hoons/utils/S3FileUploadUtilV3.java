@@ -88,7 +88,24 @@ public class S3FileUploadUtilV3 {
 	@Value("${cloud.aws.s3.upload-src")
 	private String upload;
 
+	public Map<String, String> s3TempUpload(MultipartFile file) {
+		return s3Upload(temp, file);
+	}
+
+	public Map<String, String> s3SrcUpload(MultipartFile file) {
+		return s3Upload(upload, file);
+	}
+
+	public String s3TempToSrc(String newName) {
+		return s3TempToSrc(s3Client, bucket, temp + newName, upload + newName);
+	}
 	
+	public void s3Delete(String newName) {
+		
+		String bucketKey = upload + newName;
+		
+		s3Client.deleteObject(builder -> builder.bucket(bucket).key(bucketKey));// temp 경로 이미지 삭제
+	}
 	
 	public Map<String, String> s3Upload(String bucketPath, MultipartFile imageFile) {
 		String newFileName = newFileNameByNanotime(imageFile.getOriginalFilename());
@@ -177,18 +194,6 @@ public class S3FileUploadUtilV3 {
 		result.put("bucketKey", bucketKey);
 		result.put("orgName", imageFile.getOriginalFilename());
 		return result;
-	}
-
-	public Map<String, String> s3TempUpload(MultipartFile file) {
-		return s3Upload(temp, file);
-	}
-
-	public Map<String, String> s3SrcUpload(MultipartFile file) {
-		return s3Upload(upload, file);
-	}
-
-	public String s3TempToSrc(String newName) {
-		return s3TempToSrc(s3Client, bucket, temp + newName, upload + newName);
 	}
 
 	/**

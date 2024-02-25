@@ -2,13 +2,15 @@ package com.hoons.service;
 
 import java.util.List;
 
-import com.hoons.domain.dto.cate.CateResponseDto;
-import com.hoons.domain.dto.cate.CateSaveDto;
+import com.hoons.domain.dto.cate.CateResponseDTO;
+import com.hoons.domain.dto.cate.CateSaveDTO;
 
 public interface CateService {
 
-	void save(CateSaveDto dto);
+	void save(CateSaveDTO dto);
 
-	List<CateResponseDto> getList();
+	List<CateResponseDTO> getList();
+
+	List<CateResponseDTO> getChildList(Long parentNo);
 
 }

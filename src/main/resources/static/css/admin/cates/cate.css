@@ -83,8 +83,40 @@
 .button_area > button:hover {
     background-color: #101010; /* hover 시 배경색 변경 */
 }
-
-/**************************************************/
+.cate-tab {
+	margin-bottom: 30px;
+    position: relative;
+    cursor: pointer;
+}
+.tab:last-child {
+	margin-bottom: 0px;
+}
+.cate-tab::before {
+	background-color: #222;
+    content: "";
+    width: 10px;
+    position: absolute;
+    height: 3px;
+    left: -13px;
+    top: 6px;
+}
+.cate-tab-sub {
+	margin-left: 15px;
+	position: relative;
+}
+.cate-tab-sub > li {
+	margin: 10px 0;
+}
+.cate-tab-sub > li::before {
+	background-color: #222;
+    content: "";
+    width: 10px;
+    position: absolute;
+    height: 3px;
+    left: -13px;
+    /* top: 6px; */
+    margin-top: 7px;
+}
 .second {
 	margin-top: 100px;
 }

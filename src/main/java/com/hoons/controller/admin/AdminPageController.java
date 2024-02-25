@@ -13,14 +13,4 @@ public class AdminPageController {
 		return "admin/dashBoard";
 	}
 	
-	@GetMapping("/goods")
-	public String goods() {
-		return "admin/goods/register";
-	}
-	
-	@GetMapping("/goods/list")
-	public String goodsList() {
-		return "admin/goods/list";
-	}
-	
 }

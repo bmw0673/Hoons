@@ -12,16 +12,22 @@
 
 .goodscheck_box {
 	width: 100%;
+	border-right: 1px solid;
+    border-left: 1px solid;
 }
 table th td{
 	border: 1px solid;
 }
 thead {
 	font-weight: bold;
+	background-color: #f7f7f7;
 }
-
+tr:hover {
+	background-color: #f7f7f7;
+}
 td {
-	border: 1px solid;
+	border-top: 1px solid;
+    border-bottom: 1px solid;
 	height: 40px;
 	text-align: center;
 	vertical-align: middle;

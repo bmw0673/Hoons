@@ -35,9 +35,4 @@ public class BoardController {
 		return "redirect:/admin/notices";
 	}
 	
-	@ResponseBody
-	@PostMapping("/temp-upload")
-	public Map<String, String> tempUpload(@RequestParam(name = "img") MultipartFile img) {
-		return s3FileUploadUtilV3.s3TempUpload(img);
-	}
 }

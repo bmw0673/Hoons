@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/my-layout::layout(~{this::head}, ~{this::main})}">
+
+<head>
+	<link rel="stylesheet" href="/css/goods/detail.css">
+
+	<!-- Add the slick-theme.css if you want default styling -->
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('.slider-for').slick({
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				arrows: false,
+				fade: true,
+				asNavFor: '.slider-nav'
+			});
+			$('.slider-nav').slick({
+				slidesToShow: 3,
+				slidesToScroll: 1,
+				asNavFor: '.slider-for',
+				focusOnSelect: true,
+				centerMode: false,
+				prevArrow: $('.slick-prev'), //이전 화살표만 변경
+				nextArrow: $('.slick-next'), //다음 화살표만 변경
+			});
+		});
+		///////////////////////////////////////////////////////////////////////////
+		/* 수량버튼 */
+		document.addEventListener('DOMContentLoaded', function () {
+			const btnUp = document.querySelector('#btn_up'); // 버튼 요소 선택
+			const btnDown = document.querySelector('#btn_down'); // 버튼 요소 선택
+			const quantityInput = document.querySelector('.quantity'); // 수량 입력창 선택
+
+			if (btnUp && btnDown && quantityInput) {
+				btnUp.addEventListener('click', function () {
+					const num1 = parseInt(quantityInput.value); // 현재 수량 가져오기
+					const plus = num1 + 1; // 1을 더하기
+					quantityInput.value = plus; // 새로운 수량 설정
+
+					var price = $('.th-price').val();
+
+					// 모든 cr-price 엘리먼트에 대해 가격 업데이트
+					document.querySelectorAll('.cr-price').forEach(function (crPrice) {
+						crPrice.textContent = (price * plus).toLocaleString() + '원';
+					});
+				});
+
+				btnDown.addEventListener('click', function () {
+					const num2 = parseInt(quantityInput.value); // 현재 수량 가져오기
+					const minus = Math.max(num2 - 1, 1); // 1을 빼기, 수량은 1 이상이어야 함
+					quantityInput.value = minus; // 새로운 수량 설정
+
+					var price = $('.th-price').val();
+
+					// 모든 cr-price 엘리먼트에 대해 가격 업데이트
+					document.querySelectorAll('.cr-price').forEach(function (crPrice) {
+						crPrice.textContent = (price * minus).toLocaleString() + '원';
+					});
+				});
+			}
+		});
+	</script>
+</head>
+
+<body>
+	<main>
+		<div class="content">
+			<div class="navi">
+				<span>
+					[[${goods.cateDTO.parent.name}]]  
+				</span>
+				<span>></span>
+				<span>
+					 [[${goods.cateDTO.name}]]
+				</span>
+			</div>
+			<div class="wrap">
+				<div class="item-img">
+					<ul class="slider-for">
+						<li th:each="img :${goods.imgs}">
+							<img th:src="|${img.url}|">
+						</li>
+					</ul>
+					<ul class="slider-nav">
+						<li th:each="img :${goods.imgs}">
+							<img th:src="|${img.url}|">
+						</li>
+					</ul>
+					<div class="slick-arrow slick-prev">
+						<img src="/images/icon/slide_prev_w.png">
+					</div>
+					<div class="slick-arrow slick-next">
+						<img src="/images/icon/slide_next_w.png">
+					</div>
+				</div>
+				<div class="info">
+					<div class="wrap">
+						<div class="goods-name">[[${goods.name}]]</div>
+					</div>
+					<div class="row">
+						<div class="left">
+							정상가
+						</div>
+						<div class="right">
+							[[${#numbers.formatInteger(goods.price, 3, 'COMMA')}]]
+						</div>
+					</div>
+					<div class="row">
+						<div class="left">
+							판매가
+						</div>
+						<div class="right price">
+							[[${#numbers.formatInteger(goods.price, 3, 'COMMA')}]]<span>원</span>
+							<input type="hidden" th:value="${goods.price}" class="th-price">
+						</div>
+					</div>
+					<div class="row">
+						<div class="left">
+							배송비
+						</div>
+						<div class="right">
+							총 결제금액이 50,000원 미만시 배송비 3,000원이 청구됩니다.
+						</div>
+					</div>
+					<div class="goods-option">
+						<p>[[${goods.name}]]</p>
+						<div class="num" style="position: relative;">
+							<div class="num-btn minus" id="btn_down"></div>
+							<div class="num-btn-middle">
+								<input type="number" class="quantity" id="goods-ea" min="1" value="1"
+									readonly="readonly">
+							</div>
+							<div class="num-btn plus" id="btn_up"></div>
+							<div class="cr-price">
+								[[${#numbers.formatInteger(goods.price, 3, 'COMMA')}]]<span>원</span>
+							</div>
+						</div>
+					</div>
+					<div class="total-price">
+						<span>TOTAL</span>
+						<div class="cr-price">
+							[[${#numbers.formatInteger(goods.price, 3, 'COMMA')}]]<span>원</span>
+						</div>
+					</div>
+					<div class="btn-area">
+						<div class="sell-btn">
+							바로 구매하기
+						</div>
+						<div class="cart-btn">
+							장바구니
+						</div>
+						<div class="interest-btn">
+							관심상품
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="detailTab">
+				<li class="first">
+					상세정보
+				</li>
+				<li>
+					상품후기
+				</li>
+				<li>
+					상품문의
+				</li>
+				<li>
+					배송/교환/반품
+				</li>
+			</ul>
+			<div class="item-detail">
+				<div class="detail-img">
+					[(${goods.content})]
+				</div>
+			</div>
+			<ul class="detailTab">
+				<li>
+					상세정보
+				</li>
+				<li class="first">
+					상품후기
+				</li>
+				<li>
+					상품문의
+				</li>
+				<li>
+					배송/교환/반품
+				</li>
+			</ul>
+			<div class="review-list">
+				<div class="review">
+					등록된 리뷰가 없습니다.
+				</div>
+				<div class="list-btn">
+					<div class="btn-write">글쓰기</div>
+				</div>
+			</div>
+			<ul class="detailTab">
+				<li>
+					상세정보
+				</li>
+				<li>
+					상품후기
+				</li>
+				<li class="first">
+					상품문의
+				</li>
+				<li>
+					배송/교환/반품
+				</li>
+			</ul>
+			<div class="review-list">
+				<div class="review">
+					등록된 문의가 없습니다.
+				</div>
+				<div class="list-btn">
+					<div class="btn-write">글쓰기</div>
+				</div>
+			</div>
+			<ul class="detailTab">
+				<li>
+					상세정보
+				</li>
+				<li>
+					상품후기
+				</li>
+				<li>
+					상품문의
+				</li>
+				<li class="first">
+					배송/교환/반품
+				</li>
+			</ul>
+		</div>
+	</main>
+</body>
+
+</html>

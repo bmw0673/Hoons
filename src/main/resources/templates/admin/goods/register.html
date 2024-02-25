@@ -4,92 +4,37 @@
 
 <head>
 	<link rel="stylesheet" href="/css/admin/Goods/register.css">
-	<script>
-		function changedImg(element) {
-			console.log($(element)[0].files[0]);
-
-			var formData = new FormData();
-			formData.append("goodsImg", $(element)[0].files[0]);
-
-			$.ajax({
-				url: "/admin/temp-upload",
-				data: formData,
-				type: "post",
-				contentType: false,
-				processData: false,
-				success: function (result) {
-					var tempkey = $("<input type='hidden' name='tempKey'>").val(result.bucketKey);
-					var orgname = $("<input type='hidden' name='orgName'>").val(result.orgName);
-
-					//$(element).parents(".btn-file")
-					$(element).parent().css("background-image", `url(${result.url})`);
-					//tempkey.val(result.orgName);
-					$(element).after(tempkey, orgname);
-					//$(element).siblings(".orgName").val(result.orgName);
-				}
-			});
-		}
-	</script>
+	<script src="/js/admin/goods/change-img.js"></script>
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	<script src="/js/admin/goods/summerNote.js"></script>
 	<script>
-		$(document).ready(function () {
-			$('#summernote').summernote({
-				toolbar: [
-					['fontname', ['fontname']],
-					['fontsize', ['fontsize']],
-					['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
-					['color', ['forecolor', 'color']],
-					['table', ['table']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['height', ['height']],
-					['insert', ['picture', 'link', 'video']],
-					['view', ['fullscreen', 'help']]
-				],
-				height: "500",
-				lang: "ko-KR",
-				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
-				fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'],
-				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-					onImageUpload: function (files) {
-						
-						uploadSummernoteImageFile(files[0], this);
-						
-					},
-					onPaste: function (e) {
-						var clipboardData = e.originalEvent.clipboardData;
-						if (clipboardData && clipboardData.items && clipboardData.items.length) {
-							var item = clipboardData.items[0];
-							if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-								e.preventDefault();
-							}
-						}
-					}
-				}
-			});
-		});
-		/**
-		*이미지 파일 업로드
-		*/
-		function uploadSummernoteImageFile(file, editor) {
+		function updateChildCate(parentNo) {
+			// 새로운 자식 카테고리 옵션을 추가
+			let child = $('#childCategory');
 
-			var formData = new FormData();
-			formData.append("goodsImg", file);
+			if (parentNo == 9999) {
+				child.empty()
+				return
+			}
 
 			$.ajax({
-				data: formData,
-				type: "POST",
-				url: "/admin/temp-upload",
-				contentType: false,
-				processData: false,
-				success: function (result) {
-					//항상 업로드된 파일의 url이 있어야 한다.
-					$(editor).summernote('insertImage', result.url);
-
+				type: 'GET',
+				url: '/admin/cates/' + parentNo, // 자식 카테고리를 가져올 API 엔드포인트 설정
+				success: function (data) {
+					// 자식 카테고리 추가 전 비우기
+					child.empty()
+					$.each(data, function (index, category) {
+						child.append('<option value="' + category.no + '">' + category.name + '</option>');
+					});
+				},
+				error: function () {
+					console.error('Failed to fetch child categories');
 				}
 			});
 		}
+
 	</script>
 </head>
 
@@ -106,8 +51,14 @@
 							</h3>
 						</div>
 						<div class="box_right">
-							<select name="categoryId">
-								<option th:each="category : ${categories}" th:value="${category.id}">[[${category.name}]]</option>
+							<select onchange="updateChildCate(this.value)">
+								<option value="9999">====카테고리를 선택해주세요====</option>
+								<option th:each="cate : ${cateList}" th:if="${cate.parent eq null}"
+									th:value="${cate.no}">[[${cate.name}]]</option>
+							</select>
+							<select name="cateNo" id="childCategory">
+								<option th:each="category : ${categories}" th:value="${category.id}">
+									[[${category.name}]]</option>
 							</select>
 						</div>
 					</div>
@@ -151,7 +102,7 @@
 							<div class="add_img">
 								<label class="btn-file">
 									<input type="file" accept="image/*" onchange="changedImg(this)">
-									<img src="/images/logos/add.svg">
+									<img src="/images/icon/add.svg">
 								</label>
 							</div>
 						</div>
@@ -166,31 +117,31 @@
 							<div class="add_img">
 								<label class="btn-file">
 									<input type="file" accept="image/*" onchange="changedImg(this)">
-									<img src="/images/logos/add.svg">
+									<img src="/images/icon/add.svg">
 								</label>
 							</div>
 							<div class="add_img">
 								<label class="btn-file">
 									<input type="file" accept="image/*" onchange="changedImg(this)">
-									<img src="/images/logos/add.svg">
+									<img src="/images/icon/add.svg">
 								</label>
 							</div>
 							<div class="add_img">
 								<label class="btn-file">
 									<input type="file" accept="image/*" onchange="changedImg(this)">
-									<img src="/images/logos/add.svg">
+									<img src="/images/icon/add.svg">
 								</label>
 							</div>
 							<div class="add_img">
 								<label class="btn-file">
 									<input type="file" accept="image/*" onchange="changedImg(this)">
-									<img src="/images/logos/add.svg">
+									<img src="/images/icon/add.svg">
 								</label>
 							</div>
 							<div class="add_img">
 								<label class="btn-file">
 									<input type="file" accept="image/*" onchange="changedImg(this)">
-									<img src="/images/logos/add.svg">
+									<img src="/images/icon/add.svg">
 								</label>
 							</div>
 						</div>

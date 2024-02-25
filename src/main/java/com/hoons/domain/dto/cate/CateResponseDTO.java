@@ -16,9 +16,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class CateResponseDto {
+public class CateResponseDTO {
 
 	private Long no;
 	private String name;
-	private CateResponseDto parent;
+	private CateResponseDTO parent;
 }

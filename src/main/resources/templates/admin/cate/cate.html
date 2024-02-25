@@ -44,8 +44,8 @@
 		<br>
 		<div class="main_content second">
 			<ul>
-				<li th:each="cate : ${list}" th:if="${cate.parent eq null}" class="tab" >[[${cate.name}]]
-					<ul class="sub_tab">
+				<li th:each="cate : ${list}" th:if="${cate.parent eq null}" class="tab cate-tab" >[[${cate.name}]]
+					<ul class="sub_tab cate-tab-sub">
 						<li th:each="child : ${list}" th:if="${child.parent != null and child.parent.name eq cate.name}">
 							[[${child.name}]]
 						</li>

@@ -39,6 +39,7 @@
 
 .register > .box:last-child > .box_left{
 	border-bottom: none;
+	min-width: 150px;
 }
 .register > .box > .box_right {
 	flex: 1;

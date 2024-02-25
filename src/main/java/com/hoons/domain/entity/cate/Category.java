@@ -2,7 +2,8 @@ package com.hoons.domain.entity.cate;
 
 import java.util.List;
 
-import com.hoons.domain.dto.cate.CateResponseDto;
+import com.hoons.domain.dto.cate.CateResponseDTO;
+import com.hoons.domain.entity.goods.Goods;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,12 +41,18 @@ public class Category {
 	@JoinColumn(name = "parent_id")
 	private Category parent; //부모
 	
-	
 	@OneToMany(mappedBy = "parent")
 	private List<Category> child;
 	
-	public CateResponseDto toDto() {
-		return CateResponseDto.builder()
+	@OneToMany(mappedBy = "category")
+	private List<Goods> goods;
+	
+	/**
+	 * 사용 : 카테고리 등록, 상품 등록 
+	 * @return
+	 */
+	public CateResponseDTO toDto() {
+		return CateResponseDTO.builder()
 				.no(no)
 				.name(name)
 				.parent(parent==null?null:parent.toDto())

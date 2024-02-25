@@ -83,8 +83,12 @@ img {
 	font-size: 20px;
 	justify-content: space-between;
 }
-.header_bottom nav ul li {
+.header_bottom left-nav ul li {
 	margin-right: 30px;
+}
+
+.header_bottom right-nav ul li {
+	margin-left: 30px;
 }
 
 .flex {

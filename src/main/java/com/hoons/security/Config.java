@@ -39,8 +39,8 @@ public class Config {
 				// token을 사용하는 방식이기 때문에 csrf를 disable합니다.
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-						.requestMatchers("/**")
-						.permitAll()
+						.requestMatchers("/admin/**").hasRole("ADMIN")
+						.requestMatchers("/**").permitAll()
 						.anyRequest().authenticated())
 				.formLogin(
 						formLogin -> formLogin

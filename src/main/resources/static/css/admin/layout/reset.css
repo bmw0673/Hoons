@@ -75,3 +75,6 @@ main{
 	flex: 1;
 	padding-bottom: 200px;
 }
+.shadow {
+	box-shadow: 0 1px 1px 0 #001c244d, 1px 1px 1px 0 #001c2426, -1px 1px 1px 0 #001c2426;
+}

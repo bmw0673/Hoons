@@ -20,4 +20,18 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AdminController {
 
+	private final S3FileUploadUtilV3 s3FileUploadUtilV3; 
+	
+	
+	/**
+	 * 사진 임시저장
+	 * 저장할 사진 보여주기
+	 * @param img
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/temp-upload")
+	public Map<String, String> tempUpload(@RequestParam(name = "img") MultipartFile img) {
+		return s3FileUploadUtilV3.s3TempUpload(img);
+	}
 }

@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class CateSaveDto {
+public class CateSaveDTO {
 
 	private Long parentId;
 	private String cateName;
