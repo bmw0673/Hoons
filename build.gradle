@@ -8,6 +8,13 @@ plugins {
 group = 'com.hoons'
 version = '1.0.0'
 
+/////////////////////////////
+////build시 *-plain.jar 파일 제거
+/////////////////////////////
+jar{
+	enabled=false
+}
+
 java {
 	sourceCompatibility = '17'
 }

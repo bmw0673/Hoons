@@ -54,3 +54,13 @@ td {
 .subject:hover {
 	text-decoration: underline;
 }
+.page-list {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: end;
+}
+.page-list > li {
+	margin: 0 10px;
+}

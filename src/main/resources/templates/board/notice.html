@@ -32,7 +32,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="dto : ${list.dtoList}">
-						<td>1</td>
+						<td>[[${dto.no}]]</td>
 						<td><a class="subject" th:href="|/notices/${dto.no}|">[[${dto.title}]]</a></td>
 						<td th:text="${#temporals.format(dto.createdDateTime, 'yyyy-MM-dd')}"></td>
 						<td>[[${dto.writer}]]</td>
