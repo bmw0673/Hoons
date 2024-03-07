@@ -5,9 +5,9 @@ DEPLOY_LOG="$ROOT_DIR/deploy.log"
 DATE=`date +"[%Y-%m-%d %H:%M:%S]"`
 
 #jar파일 PID
-JAR_PID=`ps -ef | grep java | grep -v grep | awk '{print $2}'`
+JAR_PID=`ps -ef | grep Hoons | grep -v grep | awk '{print $2}'`
 #추출한 PID 개수
-JAR_CNT=`ps -ef | grep java | grep -v grep | wc -l`
+JAR_CNT=`ps -ef | grep Hoons | grep -v grep | wc -l`
 
 if [ $JAR_CNT -gt 0 ] 
 then
