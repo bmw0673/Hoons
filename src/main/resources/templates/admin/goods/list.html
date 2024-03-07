@@ -14,7 +14,6 @@
 				<table class="goodscheck_box ">
 					<thead>
 						<tr>
-							<td>선택</td>
 							<td>상품번호</td>
 							<td>카테고리</td>
 							<td>상품명</td>
@@ -28,7 +27,6 @@
 					<tbody>
 						<tr th:each="goods : ${result.dtoList}"  th:onclick="|location.href='/admin/goods/${goods.no}'|"
 							style="cursor:pointer;">
-							<td><input type="checkbox" th:value="${goods.no}" name="no"></td>
 							<td>[[${goods.no}]]</td>
 							<td>
 								<span>
