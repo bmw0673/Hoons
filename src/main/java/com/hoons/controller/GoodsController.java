@@ -20,6 +20,6 @@ public class GoodsController {
 	public String detail(@PathVariable(name = "no") Long no, Model model) {
 		GoodsDetailDTO goods = goodsService.getDetail(no);
 		model.addAttribute("goods", goods);
-		return "/goods/detail";
+		return "goods/detail";
 	}
 }

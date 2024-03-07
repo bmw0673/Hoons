@@ -33,7 +33,7 @@ public class BoardController {
 		PageResultDTO<NoticeResponseDto, Notice> list = boardService.getPageList(pageDto);
 		model.addAttribute("list", list);
 		
-		return "/board/notice";
+		return "board/notice";
 	}
 	
 	@GetMapping("/notices/{no}")
@@ -41,7 +41,7 @@ public class BoardController {
 		boardService.readNotice(no);
 		NoticeResponseDto dto = boardService.getNotice(no);
 		model.addAttribute("dto", dto);
-		return "/board/detail";
+		return "board/detail";
 	}
 	
 }

@@ -20,12 +20,12 @@ public class IndexController {
 	
 	@GetMapping("/join")
 	public String join() {
-		return "/sign/signup";
+		return "sign/signup";
 	}
 	
 	@GetMapping("/login")
 	public String login() {
-		return "/sign/login";
+		return "sign/login";
 	}
 	
 	@GetMapping("/")
